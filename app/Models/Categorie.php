@@ -3,24 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Categorie extends Model
 {
     use HasFactory;
+    
     protected $fillable = [
         'libelle',
         'description'
     ];
 
-    public function livre(): HasMany
+    public function livres(): HasMany
     {
-        return $this->hasmany(livre::class);
+        return $this->hasMany(Livre::class);  // Correction ici
     }
-
 }
-
-    
-
