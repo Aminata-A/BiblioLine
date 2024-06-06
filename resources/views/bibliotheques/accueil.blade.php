@@ -7,18 +7,18 @@
     <title>Document</title>
 </head>
 <body>
+    <a href="{{ route('creation')}}">nouveau</a>
+
     @foreach ($livres as $livre)
     <div class="card " style="width: 18rem;">
         <img src="{{ $livre->image }}" height="300px" class="card-img-top" alt="...">
         <div class="card-body">
             <h1 name="titre">{{ $livre->titre }}</h1>   
-            <p name="date_de_publication">{{ $livre->date_de_publication }}</p>
-            <p name="nombre_de_pages">{{ $livre->nombre_de_pages }}</p>
             <p name="auteur">{{ $livre->auteur }}</p>
-            <p name="isbn">{{ $livre->isbn }}</p>
-            <p name="editeur">{{ $livre->editeur }}</p>
-            <p name="id_categorie">{{ $livre->id_categorie }}</p>
-            <p name="id_rayon">{{ $livre->id_rayon }}</p>
+            <a href="{{ route('detail', $livre->id)}}">details</a>
+            <a href="{{ route('modifier', $livre->id) }}" class="btn btn-warning">Modifier</a>
+            <a href="{{ route('supprimer', $livre->id) }}" class="btn btn-warning">supprimer</a>
+
         </div>
       </div>
     @endforeach
