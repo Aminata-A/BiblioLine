@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('titre');
             $table->string('image');
-            $table->string('date_de_publication');
-            $table->string('nombre_de_pages');
+            $table->dateTime('date_de_publication');
+            $table->integer('nombre_de_pages');
             $table->string('auteur');
             $table->string('isbn')->unique();
             $table->string('editeur');
