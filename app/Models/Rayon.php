@@ -9,13 +9,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Rayon extends Model
 {
     use HasFactory;
+    
     protected $fillable = [
         'libelle',
         'partie'
     ];
 
-    public function livre(): HasMany
+    public function livres(): HasMany
     {
-        return $this->hasmany(livre::class);
+        return $this->hasMany(Livre::class);  // Correction ici
     }
 }
