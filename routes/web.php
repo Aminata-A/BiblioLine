@@ -6,5 +6,5 @@ use App\Http\Controllers\LivreController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', [LivreController::class, 'accueil']);
+Route::get('/', [LivreController::class, 'accueil'])->name('accueil');
 

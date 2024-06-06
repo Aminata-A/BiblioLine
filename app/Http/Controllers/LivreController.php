@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class LivreController extends Controller
 {
     public function accueil(){
-        $livres = Livre::All(); // Récupère les 3 premiers livres
-        return view('livres.accueil', compact('livres')); 
+        $livres = Livre::All();
+        return view('bibliotheques/accueil', compact('livres')); 
     }
 }
