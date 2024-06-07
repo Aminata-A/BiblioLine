@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Livres</title>
+    <title>Biblioline</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        
         body {
             display: flex;
         }
@@ -27,28 +28,54 @@
         }
         .sidebar .nav-link {
             margin-bottom: 15px;
-            color: #fff
+            color: #fff;
+            
         }
         .main-content {
             flex: 1;
             padding: 20px;
         }
         .btn-primary{
-           background: #ff009d ;
-           border: #ff009d
-        }        
+            background-color: #ff009d;
+            border: none;
+        }
+
 
     </style>
 </head>
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
-        <h2>Biblioline</h2>
+        <h2>BiblioLine</h2>
+        @auth
+        <div class="nav-item">
+            <span class="nav-link connecter">{{ auth()->user()->name }}</span>
+        </div>
+        @endauth
         <nav class="nav flex-column">
-            <a class="nav-link" href="{{ route('accueil') }}">Accueil</a>
+
+            <a class="nav-link " href="{{ route('accueil') }}">Accueil</a>
             <a class="nav-link active" href="{{ route('livres') }}">Livres</a>
-            <a class="nav-link" href="{{ route('creation') }}">Nouveau</a>
+            @auth
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('creation') }}">Nouveau</a>
+            </li>
+            @endauth
             <a class="nav-link" href="{{ route('index') }}">Categories</a>
+ 
+            @auth
+            <div class="nav-item">
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-link nav-link text-danger">Se déconnecter</button>
+                </form>
+            </div>
+            @endauth
+            @guest
+            <div class="nav-item">
+                <a class="nav-link btn btn-light text-primary" href="{{ route('login') }}">Se connecter</a>
+            </div>
+            @endguest
 
         </nav>
     </div>
@@ -84,7 +111,9 @@
                                 <h5 class="card-title">{{ $livre->titre }}</h5>
                                 <p class="card-text">{{ $livre->auteur }}</p>
                                 <a href="{{ route('detail', $livre->id) }}" class="btn btn-primary">Détails</a>
+                                @auth
                                 <a href="{{ route('supprimer', $livre->id) }}" class="btn btn-danger">Supprimer</a>
+                                @endauth
                             </div>
                         </div>
                     </div>

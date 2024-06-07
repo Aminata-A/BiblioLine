@@ -53,10 +53,35 @@
     <div class="sidebar">
         <h2>BiblioLine</h2>
         <nav class="nav flex-column">
-            <a class="nav-link " href="{{ route('accueil') }}">Accueil</a>
-            <a class="nav-link" href="{{ route('livres') }}">Livres</a>
-            <a class="nav-link" href="{{ route('creation') }}">Nouveau</a>
-            <a class="nav-link active" href="{{ route('index') }}">Categories</a>
+            @auth
+            <div class="nav-item">
+                <span class="nav-link connecter">{{ auth()->user()->name }}</span>
+            </div>
+            @endauth
+            <nav class="nav flex-column">
+    
+                <a class="nav-link " href="{{ route('accueil') }}">Accueil</a>
+                <a class="nav-link" href="{{ route('livres') }}">Livres</a>
+                @auth
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('creation') }}">Nouveau</a>
+                </li>
+                @endauth
+                <a class="nav-link active" href="{{ route('index') }}">Categories</a>
+     
+                @auth
+                <div class="nav-item">
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-link nav-link text-danger">Se déconnecter</button>
+                    </form>
+                </div>
+                @endauth
+                @guest
+                <div class="nav-item">
+                    <a class="nav-link btn btn-light text-primary" href="{{ route('login') }}">Se connecter</a>
+                </div>
+                @endguest
         </nav>
     </div>
     <div class="main-content">
@@ -69,7 +94,9 @@
                     <th scope="col">#</th>
                     <th scope="col">Libelle</th>
                     <th scope="col">Description</th>
+                    @auth
                     <th scope="col">Statut</th>
+                    @endauth
                 </tr>
             </thead>
             <tbody>
@@ -78,6 +105,7 @@
                     <th scope="row">{{ $categorie->id }}</th>
                     <td>{{ $categorie->libelle }}</td>
                     <td>{{ $categorie->description }}</td>
+                    @auth
                     <td class="d-flex">
                         <a href="/categories/modifier/{{ $categorie->id }}" class="btn btn-warning">
                             <i class="fas fa-edit"></i>
@@ -86,13 +114,14 @@
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     </td>
+                    @endauth
                 </tr>
                 @endforeach
                 
             </tbody>
         </table>
 
-
+@auth
         <div class="container">
             <h1>creation de categorie</h1>
             <div>
@@ -111,6 +140,7 @@
                 <button type="submit" class="btn btn-primary">Creer</button>
                 </form> 
         </div>
+        @endauth
 
     <footer class="bg-light text-center text-lg-start mt-5">
         <div class="container p-4">

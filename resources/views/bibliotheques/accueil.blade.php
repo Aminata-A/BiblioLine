@@ -35,17 +35,44 @@
             flex: 1;
             padding: 20px;
         }
+
+
     </style>
 </head>
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
         <h2>BiblioLine</h2>
+        @auth
+        <div class="nav-item">
+            <span class="nav-link connecter">{{ auth()->user()->name }}</span>
+        </div>
+        @endauth
         <nav class="nav flex-column">
+
             <a class="nav-link active" href="{{ route('accueil') }}">Accueil</a>
             <a class="nav-link" href="{{ route('livres') }}">Livres</a>
-            <a class="nav-link" href="{{ route('creation') }}">Nouveau</a>
+            @auth
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('creation') }}">Nouveau</a>
+            </li>
+            @endauth
             <a class="nav-link" href="{{ route('index') }}">Categories</a>
+ 
+            @auth
+            <div class="nav-item">
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-link nav-link text-danger">Se déconnecter</button>
+                </form>
+            </div>
+            @endauth
+            @guest
+            <div class="nav-item">
+                <a class="nav-link btn btn-light text-primary" href="{{ route('login') }}">Se connecter</a>
+            </div>
+            @endguest
+
         </nav>
     </div>
     
@@ -115,7 +142,9 @@
                             <h5 class="card-title">{{ $livre->titre }}</h5>
                             <p class="card-text">{{ $livre->auteur }}</p>
                             <a href="{{ route('detail', $livre->id) }}" class="btn btn-primary">Details</a>
+                            @auth
                             <a href="{{ route('supprimer', $livre->id) }}" class="btn btn-danger">Supprimer</a>
+                            @endauth
                         </div>
                     </div>
                 </div>
