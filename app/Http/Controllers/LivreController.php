@@ -3,63 +3,97 @@
 namespace App\Http\Controllers;
 
 use App\Models\Livre;
+use App\Models\Categorie;
+use App\Models\Rayon;
 use Illuminate\Http\Request;
 
 class LivreController extends Controller
 {
+    // Affiche la liste des livres sur la page d'accueil
     public function accueil(){
-        $livres = Livre::All();
-        return view('bibliotheques/accueil', compact('livres')); 
+        $livres = Livre::take(3)->get(); // Récupère les 3 premiers livres
+        return view('bibliotheques/accueil', compact('livres'));
     }
+
+    // Affiche tous les livres
+    public function livres(Request $request){
+        $categories = Categorie::all(); // Récupère toutes les catégories
+        $categorie_id = $request->input('categorie_id'); // Récupère l'ID de la catégorie sélectionnée
+        if ($categorie_id) {
+            $livres = Livre::where('categorie_id', $categorie_id)->get(); // Filtre les livres par catégorie
+        } else {
+            $livres = Livre::all(); // Récupère tous les livres
+        }
+        return view('bibliotheques/livres', compact('livres', 'categories', 'categorie_id'));
+    }
+
+    // Affiche les détails d'un livre spécifique
     public function detail($id){
-        $livre = Livre::findOrFail($id); // Trouve le livre par son ID ou renvoie une erreur 404
-        return view('bibliotheques/details', compact('livre')); 
-
+        $livre = Livre::findOrFail($id);
+        return view('bibliotheques/details', compact('livre'));
     }
 
+    // Affiche le formulaire de création d'un nouveau livre
     public function creation()
     {
-        return view('bibliotheques.creation'); // Retourne la vue 'ajout' pour ajouter un livre
+        $categories = Categorie::all();
+        $rayons = Rayon::all();
+        return view('bibliotheques.creation', compact('categories', 'rayons'));
     }
 
     // Méthode pour sauvegarder un nouveau livre
     public function sauvegarde(Request $request)
     {
-        // $request->validate([
-        //     'titre' => 'required|max:255',
-        //     'image' => 'required|url',
-        //     'date_de_publication' => 'required',
-        //     'nombre_de_pages' => 'required',
-        //     'auteur' => 'required|max:150',
-        //     'isbn' => 'required|max:13',
-        //     'editeur' => 'required',
-        //     'id_categorie' => 'required|integer',
-        //     'id_rayon' => 'required|integer'
-        // ]); 
+        $request->validate([
+            'titre' => 'required|max:255',
+            'image' => 'required|url',
+            'date_de_publication' => 'required',
+            'nombre_de_pages' => 'required',
+            'auteur' => 'required|max:150',
+            'isbn' => 'required|max:13',
+            'editeur' => 'required',
+            'categorie_id' => 'required|integer',
+            'rayon_id' => 'required|integer'
+        ]);
 
-        Livre::create($request->all()); 
-
-        return redirect('/')->with('success', 'livre ajouté avec succès'); 
+        Livre::create($request->all());
+        return redirect('/')->with('success', 'Livre ajouté avec succès');
     }
 
+    // Affiche le formulaire de modification d'un livre existant
     public function modifier($id)
     {
-        $livre = Livre::findOrFail($id); 
-        return view('bibliotheques.modifier', compact('livre')); 
+        $livre = Livre::findOrFail($id);
+        $categories = Categorie::all();
+        $rayons = Rayon::all();
+        return view('bibliotheques/modifier', compact('livre', 'categories', 'rayons'));
     }
-    
+
+    // Méthode pour enregistrer les modifications d'un livre existant
     public function enregistrer(Request $request, $id)
     {
-        $livre = Livre::findOrFail($id); 
+        $request->validate([
+            'titre' => 'required|max:255',
+            'image' => 'required|url',
+            'date_de_publication' => 'required',
+            'nombre_de_pages' => 'required',
+            'auteur' => 'required|max:150',
+            'isbn' => 'required|max:13',
+            'editeur' => 'required',
+            'categorie_id' => 'required|integer',
+            'rayon_id' => 'required|integer'
+        ]);
 
-        $livre->save();
+        $livre = Livre::findOrFail($id);
+        $livre->update($request->all());
         return redirect('/livres/detail/' . $livre->id)->with('success', 'Modification réussie');
     }
-        // Méthode pour supprimer un bien
-        public function supprimer($id)
-        {
-            $livre = Livre::findOrFail($id); // Trouve le bien par son ID ou renvoie une erreur 404
-            $livre->delete(); // Supprime le bien
-            return redirect('/')->with('livre', 'Bien supprimé avec succès'); // Redirige vers la page des biens
-        }
+
+    // Méthode pour supprimer un livre
+    public function supprimer($id)
+    {
+        $livre = Livre::findOrFail($id);
+        $livre->delete();
+        return redirect('/')->with('success', 'Livre supprimé avec succès');
+    }
 }
