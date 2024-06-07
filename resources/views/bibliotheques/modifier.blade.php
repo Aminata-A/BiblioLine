@@ -1,80 +1,80 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ajouter un Livre</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Biblioline</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        
         body {
             display: flex;
-            background-color: #f8f9fa;
         }
         .sidebar {
             min-width: 250px;
             max-width: 250px;
             background-color: #343a40;
-            color: #fff;
             padding: 20px;
-            position: fixed;
-            height: 100%;
         }
-        .sidebar .nav-link {
+        .sidebar h2{
             color: #fff;
-            margin-bottom: 15px;
+            margin-bottom: 35px;
         }
         .sidebar .nav-link.active {
             background-color: #ff009d;
             color: #fff;
         }
-        .main-content {
-            margin-left: 270px;
-            padding: 20px;
-            flex: 1;
-        }
-        .container {
-            margin-top: 50px;
-        }
-        .form-label {
-            font-weight: bold;
-        }
-        .btn-primary {
-            background-color: #ff009d;
-            border-color: #ff009d;
-        }
-        .card {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-        }
-        .card-header {
-            background-color: #ff009d;
+        .sidebar .nav-link {
+            margin-bottom: 15px;
             color: #fff;
-            border-radius: 10px 10px 0 0;
-            padding: 10px 20px;
+            
         }
-        .form-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .form-col {
+        .main-content {
             flex: 1;
-            min-width: 200px;
+            padding: 20px;
         }
+
+
     </style>
 </head>
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
-        <h2>Biblioline</h2>
+        <h2>BiblioLine</h2>
+        @auth
+        <div class="nav-item">
+            <span class="nav-link connecter">{{ auth()->user()->name }}</span>
+        </div>
+        @endauth
         <nav class="nav flex-column">
-            <a class="nav-link" href="{{ route('accueil') }}">Accueil</a>
+
+            <a class="nav-link active" href="{{ route('accueil') }}">Accueil</a>
             <a class="nav-link" href="{{ route('livres') }}">Livres</a>
-            <a class="nav-link active" href="{{ route('creation') }}">Nouveau</a>
+            @auth
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('creation') }}">Nouveau</a>
+            </li>
+            @endauth
             <a class="nav-link" href="{{ route('index') }}">Categories</a>
+ 
+            @auth
+            <div class="nav-item">
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-link nav-link text-danger">Se déconnecter</button>
+                </form>
+            </div>
+            @endauth
+            @guest
+            <div class="nav-item">
+                <a class="nav-link btn btn-light text-primary" href="{{ route('login') }}">Se connecter</a>
+            </div>
+            @endguest
+
         </nav>
     </div>
-
     <!-- Main Content -->
     <div class="main-content">
     <div class="container">
