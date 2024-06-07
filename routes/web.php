@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LivreController;
 use App\Http\Controllers\CategorieController;
@@ -17,6 +18,16 @@ Route::post('livres/{id}/enregistrer', [LivreController::class, 'enregistrer'])-
 Route::get('livres/supprimer/{id}', [LivreController::class, 'supprimer'])->name('supprimer')->where('id', '[0-9]+');
 
 
+Route::get('/categories', [CategorieController::class, 'index'])->name('index');
+Route::get('/categories/creation', [CategorieController::class, 'creation'])->name('categories.creation');
+Route::post('/categories/sauvegarde', [CategorieController::class, 'sauvegarde'])->name('categories.sauvegarde');
+Route::get('categories/modifier/{id}', [CategorieController::class, 'modifier'])->name('categories.modifier')->where('id', '[0-9]+');
+Route::post('categories/{id}/enregistrer', [CategorieController::class, 'enregistrer'])->name('categories.enregistrer');
+Route::get('categories/supprimer/{id}', [CategorieController::class, 'supprimer'])->name('categories.supprimer')->where('id', '[0-9]+');
 
 
 
+
+
+Route::get("/register", [RegisterController::class, 'create'])->name('register');
+Route::post("/register", [RegisterController::class, 'store'])->name('register.store');

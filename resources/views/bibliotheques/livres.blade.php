@@ -48,6 +48,8 @@
             <a class="nav-link" href="{{ route('accueil') }}">Accueil</a>
             <a class="nav-link active" href="{{ route('livres') }}">Livres</a>
             <a class="nav-link" href="{{ route('creation') }}">Nouveau</a>
+            <a class="nav-link" href="{{ route('index') }}">Categories</a>
+
         </nav>
     </div>
 

@@ -4,11 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Détails du Livre</title>
+    <title>Biblioline</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        
+        body {
+            display: flex;
+        }
+        .sidebar {
+            min-width: 250px;
+            max-width: 250px;
+            background-color: #343a40;
+            padding: 20px;
+        }
+        .sidebar h2{
+            color: #fff;
+            margin-bottom: 35px;
+        }
+        .sidebar .nav-link.active {
+            background-color: #ff009d;
+            color: #fff;
+        }
+        .sidebar .nav-link {
+            margin-bottom: 15px;
+            color: #fff;
+            
+        }
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>BiblioLine</h2>
+        <nav class="nav flex-column">
+            <a class="nav-link active" href="{{ route('accueil') }}">Accueil</a>
+            <a class="nav-link" href="{{ route('livres') }}">Livres</a>
+            <a class="nav-link" href="{{ route('creation') }}">Nouveau</a>
+            <a class="nav-link" href="{{ route('index') }}">Categories</a>
+        </nav>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Carrousel -->
     <div class="container mt-5">
         <div class="card">
             <div class="row no-gutters">
