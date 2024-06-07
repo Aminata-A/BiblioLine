@@ -73,30 +73,25 @@
                 <span class="nav-link connecter">{{ auth()->user()->name }}</span>
             </div>
             @endauth
-            <nav class="nav flex-column">
-    
-                <a class="nav-link " href="{{ route('accueil') }}">Accueil</a>
-                <a class="nav-link" href="{{ route('livres') }}">Livres</a>
-                @auth
-                <li class="nav-item">
-                    <a class="nav-link active" href="{{ route('creation') }}">Nouveau</a>
-                </li>
-                @endauth
-                <a class="nav-link" href="{{ route('index') }}">Categories</a>
-     
-                @auth
-                <div class="nav-item">
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-link nav-link text-danger">Se déconnecter</button>
-                    </form>
-                </div>
-                @endauth
-                @guest
-                <div class="nav-item">
-                    <a class="nav-link btn btn-light text-primary" href="{{ route('login') }}">Se connecter</a>
-                </div>
-                @endguest
+            <a class="nav-link" href="{{ route('accueil') }}">Accueil</a>
+            <a class="nav-link" href="{{ route('livres') }}">Livres</a>
+            @auth
+            <a class="nav-link active" href="{{ route('creation') }}">Nouveau</a>
+            @endauth
+            <a class="nav-link" href="{{ route('index') }}">Categories</a>
+            @auth
+            <div class="nav-item">
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-link nav-link text-danger">Se déconnecter</button>
+                </form>
+            </div>
+            @endauth
+            @guest
+            <div class="nav-item">
+                <a class="nav-link btn btn-light text-primary" href="{{ route('login') }}">Se connecter</a>
+            </div>
+            @endguest
         </nav>
     </div>
 
@@ -113,108 +108,105 @@
                         <div class="form-row">
                             <div class="form-col mb-3">
                                 <label for="titre" class="form-label">Titre</label>
-                                <input type="text" class="form-control" @error('titre') is-invalid @enderror id="titre" name="titre" >
+                                <input type="text" class="form-control @error('titre') is-invalid @enderror" id="titre" name="titre" value="{{ old('titre') }}">
                                 @error('titre')
                                 <div class="invalid-feedback">
-                                  {{ $message }}
+                                    {{ $message }}
                                 </div>
-                              @enderror
+                                @enderror
                             </div>
 
                             <div class="form-col mb-3">
                                 <label for="auteur" class="form-label">Auteur</label>
-                                <input type="text" class="form-control" @error('auteur') is-invalid @enderror id="auteur" name="auteur" >
+                                <input type="text" class="form-control @error('auteur') is-invalid @enderror" id="auteur" name="auteur" value="{{ old('auteur') }}">
                                 @error('auteur')
                                 <div class="invalid-feedback">
-                                  {{ $message }}
+                                    {{ $message }}
                                 </div>
-                              @enderror
+                                @enderror
                             </div>
-
                         </div>
                         <div class="form-row">
                             <div class="form-col mb-3">
                                 <label for="nombre_de_pages" class="form-label">Nombre de Pages</label>
-                                <input type="number" class="form-control" @error('nombre_de_pages') is-invalid @enderror id="nombre_de_pages" name="nombre_de_pages" >
+                                <input type="number" class="form-control @error('nombre_de_pages') is-invalid @enderror" id="nombre_de_pages" name="nombre_de_pages" value="{{ old('nombre_de_pages') }}">
                                 @error('nombre_de_pages')
                                 <div class="invalid-feedback">
-                                  {{ $message }}
+                                    {{ $message }}
                                 </div>
-                              @enderror
+                                @enderror
                             </div>
 
                             <div class="form-col mb-3">
                                 <label for="date_de_publication" class="form-label">Date de Publication</label>
-                                <input type="date" class="form-control" @error('date_de_publication') is-invalid @enderror id="date_de_publication" name="date_de_publication" >
+                                <input type="date" class="form-control @error('date_de_publication') is-invalid @enderror" id="date_de_publication" name="date_de_publication" value="{{ old('date_de_publication') }}">
                                 @error('date_de_publication')
                                 <div class="invalid-feedback">
-                                  {{ $message }}
+                                    {{ $message }}
                                 </div>
-                              @enderror
+                                @enderror
                             </div>
-
                         </div>
                         <div class="form-row">
                             <div class="form-col mb-3">
                                 <label for="editeur" class="form-label">Éditeur</label>
-                                <input type="text" @error('editeur') is-invalid @enderror class="form-control" id="editeur" name="editeur" >
+                                <input type="text" class="form-control @error('editeur') is-invalid @enderror" id="editeur" name="editeur" value="{{ old('editeur') }}">
                                 @error('editeur')
                                 <div class="invalid-feedback">
-                                  {{ $message }}
+                                    {{ $message }}
                                 </div>
-                              @enderror
+                                @enderror
                             </div>
+
                             <div class="form-col mb-3">
                                 <label for="isbn" class="form-label">ISBN</label>
-                                <input type="text" class="form-control" @error('isbn') is-invalid @enderror id="isbn" name="isbn" >
+                                <input type="text" class="form-control @error('isbn') is-invalid @enderror" id="isbn" name="isbn" value="{{ old('isbn') }}">
                                 @error('isbn')
                                 <div class="invalid-feedback">
-                                  {{ $message }}
+                                    {{ $message }}
                                 </div>
+                                @enderror
                             </div>
-                          @enderror
-
                         </div>
                         <div class="form-row">
                             <div class="form-col mb-3">
                                 <label for="rayon_id" class="form-label">Rayon</label>
-                                <select class="form-control" id="rayon_id" @error('rayon_id') is-invalid @enderror name="rayon_id" >
+                                <select class="form-control @error('rayon_id') is-invalid @enderror" id="rayon_id" name="rayon_id">
                                     <option value="">Sélectionner un rayon</option>
                                     @foreach ($rayons as $rayon)
-                                        <option value="{{ $rayon->id }}">{{ $rayon->libelle }}</option>
+                                        <option value="{{ $rayon->id }}" {{ old('rayon_id') == $rayon->id ? 'selected' : '' }}>{{ $rayon->libelle }}</option>
                                     @endforeach
                                 </select>
                                 @error('rayon_id')
                                 <div class="invalid-feedback">
-                                  {{ $message }}
+                                    {{ $message }}
                                 </div>
-                              @enderror
+                                @enderror
                             </div>
                             <div class="form-col mb-3">
-                                <label for="categorie_id"  class="form-label">Catégorie</label>
-                                <select class="form-control" id="categorie_id" @error('categorie_id') is-invalid @enderror name="categorie_id" >
+                                <label for="categorie_id" class="form-label">Catégorie</label>
+                                <select class="form-control @error('categorie_id') is-invalid @enderror" id="categorie_id" name="categorie_id">
                                     <option value="">Sélectionner une catégorie</option>
                                     @foreach ($categories as $categorie)
-                                        <option value="{{ $categorie->id }}">{{ $categorie->libelle }}</option>
-
+                                        <option value="{{ $categorie->id }}" {{ old('categorie_id') == $categorie->id ? 'selected' : '' }}>{{ $categorie->libelle }}</option>
                                     @endforeach
-                                    @error('categorie_id')
-                                    <div class="invalid-feedback">
-                                      {{ $message }}
-                                    </div>
-                                  @enderror
                                 </select>
+                                @error('categorie_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-col mb-3">
                                 <label for="image" class="form-label">Image (URL)</label>
-                                <input type="url" @error('categorie_id') is-invalid @enderror class="form-control" id="image" name="image" >
+                                <input type="url" class="form-control @error('image') is-invalid @enderror" id="image" name="image" value="{{ old('image') }}">
                                 @error('image')
                                 <div class="invalid-feedback">
-                                  {{ $message }}
+                                    {{ $message }}
                                 </div>
-                              @enderror
+                                @enderror
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Soumettre</button>
