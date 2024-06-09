@@ -140,8 +140,8 @@
                     <input type="text" class="form-control" id="libelle" name="libelle">
                 </div>
                 <div>
-                    <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control mb-4" name="description" id="description" cols="10" rows="10"></textarea>
+                    <label for="partie" class="form-label">partie</label>
+                    <textarea class="form-control mb-4" name="partie" id="partie" cols="10" rows="10"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Créer</button>
             </form>
