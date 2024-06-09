@@ -41,7 +41,7 @@
             color: #fff;
         }
         .sidebar .nav-link.active {
-            background-color: #ff009d;
+            background-color: #BF4D19;
             color: #fff;
         }
         .main-content {
@@ -79,8 +79,8 @@
                 <span class="nav-link connecter">{{ auth()->user()->name }}</span>
             </div>
             @endauth
-            <a class="nav-link active" href="{{ route('accueil') }}">Accueil</a>
-            <a class="nav-link" href="{{ route('livres') }}">Livres</a>
+            <a class="nav-link " href="{{ route('accueil') }}">Accueil</a>
+            <a class="nav-link active" href="{{ route('livres') }}">Livres</a>
             @auth
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('creation') }}">Nouveau</a>

@@ -38,7 +38,7 @@
             color: #fff;
         }
         .sidebar .nav-link.active {
-            background-color: #ff009d;
+            background-color: #BF4D19;
             color: #fff;
         }
         .main-content {
@@ -59,7 +59,7 @@
             border-radius: 10px;
         }
         .card-header {
-            background-color: #ff009d;
+            background-color: #BF4D19;
             color: #fff;
             border-radius: 10px 10px 0 0;
             padding: 10px 20px;
