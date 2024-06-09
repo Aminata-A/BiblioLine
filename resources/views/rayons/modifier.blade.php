@@ -79,8 +79,8 @@
                 <a class="nav-link" href="{{ route('creation') }}">Nouveau</a>
             </li>
             @endauth
-            <a class="nav-link active" href="{{ route('index') }}">Categories</a>
-            <a class="nav-link " href="{{ route('rayons') }}">Rayons</a>
+            <a class="nav-link" href="{{ route('index') }}">Categories</a>
+            <a class="nav-link active" href="{{ route('rayons') }}">Rayons</a>
             @auth
             <div class="nav-item">
                 <form action="{{ route('logout') }}" method="POST">
@@ -102,18 +102,18 @@
         
         
         <div class="container">
-            <h1>Modification de categorie</h1>
+            <h1>Modification de rayon</h1>
             <div>
-                <form action="{{ route('categories.enregistrer', ['id' => $categorie->id]) }}" method="post">
+                <form action="{{ route('rayons.enregistrer', ['id' => $rayon->id]) }}" method="post">
                     @csrf
                 </div>
                 <div class="mb-3">
                     <label for="libelle" class="form-label">Libelle</label>
-                    <input type="text" class="form-control" id="libelle" name="libelle" value="{{$categorie->libelle}}">
+                    <input type="text" class="form-control" id="libelle" name="libelle" value="{{$rayon->libelle}}">
                 </div>
                 <div>
                     <label for="description" class="form-label">description</label>
-                    <textarea class="form-control mb-4" name="description" id="description" cols="10" rows="10">{{$categorie->description}}</textarea>
+                    <textarea class="form-control mb-4" name="description" id="description" cols="10" rows="10">{{$rayon->description}}</textarea>
                     
                 </div>
                 <button type="submit" class="btn btn-primary">Modifier</button>

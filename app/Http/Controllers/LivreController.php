@@ -10,25 +10,40 @@ use Illuminate\Http\Request;
 class LivreController extends Controller
 {
     // Affiche la liste des livres sur la page d'accueil
-    public function accueil(){
+    public function accueil()
+    {
         $livres = Livre::take(3)->get(); // Récupère les 3 premiers livres
         return view('bibliotheques/accueil', compact('livres'));
     }
 
     // Affiche tous les livres
-    public function livres(Request $request){
+    public function livres(Request $request)
+    {
         $categories = Categorie::all(); // Récupère toutes les catégories
         $categorie_id = $request->input('categorie_id'); // Récupère l'ID de la catégorie sélectionnée
+        $search = $request->input('search'); // Récupère le terme de recherche
+
+        $query = Livre::query();
+
         if ($categorie_id) {
-            $livres = Livre::where('categorie_id', $categorie_id)->get(); // Filtre les livres par catégorie
-        } else {
-            $livres = Livre::all(); // Récupère tous les livres
+            $query->where('categorie_id', $categorie_id); // Filtre les livres par catégorie
         }
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('titre', 'like', '%' . $search . '%')
+                  ->orWhere('auteur', 'like', '%' . $search . '%');
+            });
+        }
+
+        $livres = $query->get();
+
         return view('bibliotheques/livres', compact('livres', 'categories', 'categorie_id'));
     }
 
     // Affiche les détails d'un livre spécifique
-    public function detail($id){
+    public function detail($id)
+    {
         $livre = Livre::findOrFail($id);
         return view('bibliotheques/details', compact('livre'));
     }
