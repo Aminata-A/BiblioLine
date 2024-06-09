@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\rayon;
+use App\Models\Rayon;
 use Illuminate\Http\Request;
 
 class RayonController extends Controller
