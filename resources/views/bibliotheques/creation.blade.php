@@ -14,14 +14,28 @@
             min-width: 250px;
             max-width: 250px;
             background-color: #343a40;
-            color: #fff;
             padding: 20px;
+            height: 100vh;
             position: fixed;
-            height: 100%;
+            color: #fff;
+        }
+        .sidebar h2 {
+            color: #fff;
+            margin-bottom: 35px;
+            text-align: center;
+            font-size: 24px;
         }
         .sidebar .nav-link {
-            color: #fff;
+            color: #adb5bd;
             margin-bottom: 15px;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+        .sidebar .nav-link:hover {
+            background-color: #495057;
+            color: #fff;
         }
         .sidebar .nav-link.active {
             background-color: #ff009d;
@@ -32,15 +46,13 @@
             padding: 20px;
             flex: 1;
         }
-        .container {
-            margin-top: 50px;
-        }
-        .form-label {
-            font-weight: bold;
+        .btn-warning {
+            background-color: transparent;
+            border: none;
         }
         .btn-primary {
-            background-color: #ff009d;
-            border-color: #ff009d;
+            background-color: #343a40;
+            border: none;
         }
         .card {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -79,6 +91,7 @@
             <a class="nav-link active" href="{{ route('creation') }}">Nouveau</a>
             @endauth
             <a class="nav-link" href="{{ route('index') }}">Categories</a>
+            <a class="nav-link" href="{{ route('rayons') }}">Rayons</a>
             @auth
             <div class="nav-item">
                 <form action="{{ route('logout') }}" method="POST">
