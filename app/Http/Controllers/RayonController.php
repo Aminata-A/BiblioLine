@@ -21,7 +21,7 @@ class RayonController extends Controller
     {
         $request->validate([
             'libelle' => 'required|max:255',
-            'description' => 'required'
+            'partie' => 'required'
         ]);
 
         Rayon::create($request->all());
@@ -38,7 +38,7 @@ class RayonController extends Controller
     {
         $request->validate([
             'libelle' => 'required|max:255',
-            'description' => 'required'
+            'partie' => 'required'
         ]);
 
         $rayon = Rayon::findOrFail($id);
