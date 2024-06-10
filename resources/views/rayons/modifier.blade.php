@@ -112,8 +112,8 @@
                     <input type="text" class="form-control" id="libelle" name="libelle" value="{{$rayon->libelle}}">
                 </div>
                 <div>
-                    <label for="description" class="form-label">description</label>
-                    <textarea class="form-control mb-4" name="description" id="description" cols="10" rows="10">{{$rayon->description}}</textarea>
+                    <label for="partie" class="form-label">partie</label>
+                    <textarea class="form-control mb-4" name="partie" id="partie" cols="10" rows="10">{{$rayon->partie}}</textarea>
                     
                 </div>
                 <button type="submit" class="btn btn-primary">Modifier</button>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ajouter un Livre</title>
+    <title>Modifier un Livre</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         body {
@@ -92,7 +92,7 @@
             <a class="nav-link" href="{{ route('accueil') }}">Accueil</a>
             <a class="nav-link active" href="{{ route('livres') }}">Livres</a>
             @auth
-            <a class="nav-link " href="{{ route('creation') }}">Nouveau</a>
+            <a class="nav-link" href="{{ route('creation') }}">Nouveau</a>
             @endauth
             <a class="nav-link" href="{{ route('index') }}">Categories</a>
             <a class="nav-link" href="{{ route('rayons') }}">Rayons</a>
@@ -124,14 +124,14 @@
                         <div class="form-row">
                             <div class="form-col mb-3">
                                 <label for="titre" class="form-label">Titre</label>
-                                <input type="text" class="form-control" id="titre" name="titre"  value="{{ old('titre', $livre->titre) }}">
+                                <input type="text" class="form-control" id="titre" name="titre" value="{{ old('titre', $livre->titre) }}">
                                 @error('titre')
                                     <div class="error-message">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-col mb-3">
                                 <label for="auteur" class="form-label">Auteur</label>
-                                <input type="text" class="form-control" id="auteur" name="auteur"  value="{{ old('auteur', $livre->auteur) }}">
+                                <input type="text" class="form-control" id="auteur" name="auteur" value="{{ old('auteur', $livre->auteur) }}">
                                 @error('auteur')
                                     <div class="error-message">{{ $message }}</div>
                                 @enderror
@@ -140,14 +140,14 @@
                         <div class="form-row">
                             <div class="form-col mb-3">
                                 <label for="image" class="form-label">Image (URL)</label>
-                                <input type="url" class="form-control" id="image" name="image"  value="{{ old('image', $livre->image) }}">
+                                <input type="url" class="form-control" id="image" name="image" value="{{ old('image', $livre->image) }}">
                                 @error('image')
                                     <div class="error-message">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-col mb-3">
-                                <label for="date_de_publication" class="form-label">Date de Publication</label>
-                                <input type="date" class="form-control" id="date_de_publication" name="date_de_publication"  value="{{ old('date_de_publication', $livre->date_de_publication) }}">
+                                <label for="date_de_publication" class="form-label">Date et Heure de Publication</label>
+                                <input type="datetime-local" class="form-control" id="date_de_publication" name="date_de_publication" value="{{ old('date_de_publication', $livre->date_de_publication ? \Carbon\Carbon::parse($livre->date_de_publication)->format('Y-m-d\TH:i') : '') }}">
                                 @error('date_de_publication')
                                     <div class="error-message">{{ $message }}</div>
                                 @enderror
@@ -156,14 +156,14 @@
                         <div class="form-row">
                             <div class="form-col mb-3">
                                 <label for="nombre_de_pages" class="form-label">Nombre de Pages</label>
-                                <input type="number" class="form-control" id="nombre_de_pages" name="nombre_de_pages"  value="{{ old('nombre_de_pages', $livre->nombre_de_pages) }}">
+                                <input type="number" class="form-control" id="nombre_de_pages" name="nombre_de_pages" value="{{ old('nombre_de_pages', $livre->nombre_de_pages) }}">
                                 @error('nombre_de_pages')
                                     <div class="error-message">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-col mb-3">
                                 <label for="isbn" class="form-label">ISBN</label>
-                                <input type="number" class="form-control" id="isbn" name="isbn"  value="{{ old('isbn', $livre->isbn) }}">
+                                <input type="number" class="form-control" id="isbn" name="isbn" value="{{ old('isbn', $livre->isbn) }}">
                                 @error('isbn')
                                     <div class="error-message">{{ $message }}</div>
                                 @enderror
@@ -172,7 +172,7 @@
                         <div class="form-row">
                             <div class="form-col mb-3">
                                 <label for="editeur" class="form-label">Éditeur</label>
-                                <input type="text" class="form-control" id="editeur" name="editeur"  value="{{ old('editeur', $livre->editeur) }}">
+                                <input type="text" class="form-control" id="editeur" name="editeur" value="{{ old('editeur', $livre->editeur) }}">
                                 @error('editeur')
                                     <div class="error-message">{{ $message }}</div>
                                 @enderror
@@ -180,7 +180,7 @@
                             <div class="form-row">
                                 <div class="form-col mb-3">
                                     <label for="rayon_id" class="form-label">Rayon</label>
-                                    <select class="form-control" id="rayon_id" name="rayon_id" >
+                                    <select class="form-control" id="rayon_id" name="rayon_id">
                                         <option value="">Sélectionner un rayon</option>
                                         @foreach ($rayons as $rayon)
                                             <option value="{{ $rayon->id }}" {{ old('rayon_id', $livre->rayon_id) == $rayon->id ? 'selected' : '' }}>{{ $rayon->libelle }}</option>
@@ -192,7 +192,7 @@
                                 </div>
                                 <div class="form-col mb-3">
                                     <label for="categorie_id" class="form-label">Catégorie</label>
-                                    <select class="form-control" id="categorie_id" name="categorie_id" >
+                                    <select class="form-control" id="categorie_id" name="categorie_id">
                                         <option value="">Sélectionner une catégorie</option>
                                         @foreach ($categories as $categorie)
                                             <option value="{{ $categorie->id }}" {{ old('categorie_id', $livre->categorie_id) == $categorie->id ? 'selected' : '' }}>{{ $categorie->libelle }}</option>

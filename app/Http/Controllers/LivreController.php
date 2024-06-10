@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Livre;
-use App\Models\Categorie;
 use App\Models\Rayon;
+use App\Models\Categorie;
 use Illuminate\Http\Request;
 
 class LivreController extends Controller
@@ -60,16 +61,18 @@ class LivreController extends Controller
     public function sauvegarde(Request $request)
     {
         $request->validate([
-            'titre' => 'required|max:255',
-            'image' => 'required|url',
-            'date_de_publication' => 'required',
-            'nombre_de_pages' => 'required',
-            'auteur' => 'required|max:150',
-            'isbn' => 'required|max:13',
-            'editeur' => 'required',
-            'categorie_id' => 'required|integer',
-            'rayon_id' => 'required|integer'
+            'titre' => 'required|string|max:255',
+            'auteur' => 'required|string|max:255',
+            'nombre_de_pages' => 'required|integer|min:32',
+            'date_de_publication' => 'required|date_format:Y-m-d\TH:i',
+            'editeur' => 'required|string|max:255',
+            'isbn' => 'required|string|max:255',
+            'rayon_id' => 'required|exists:rayons,id',
+            'categorie_id' => 'required|exists:categories,id',
+            'image' => 'nullable|url',
         ]);
+        $date_de_publication = Carbon::createFromFormat('Y-m-d\TH:i', $request->date_de_publication);
+
 
         Livre::create($request->all());
         return redirect('/')->with('success', 'Livre ajouté avec succès');
@@ -88,16 +91,18 @@ class LivreController extends Controller
     public function enregistrer(Request $request, $id)
     {
         $request->validate([
-            'titre' => 'required|max:255',
-            'image' => 'required|url',
-            'date_de_publication' => 'required',
-            'nombre_de_pages' => 'required',
-            'auteur' => 'required|max:150',
-            'isbn' => 'required|max:13',
-            'editeur' => 'required',
-            'categorie_id' => 'required|integer',
-            'rayon_id' => 'required|integer'
+            'titre' => 'required|string|max:255',
+            'auteur' => 'required|string|max:255',
+            'nombre_de_pages' => 'required|integer|min:32',
+            'date_de_publication' => 'required|date_format:Y-m-d\TH:i',
+            'editeur' => 'required|string|max:255',
+            'isbn' => 'required|string|max:255',
+            'rayon_id' => 'required|exists:rayons,id',
+            'categorie_id' => 'required|exists:categories,id',
+            'image' => 'nullable|url',
         ]);
+    
+        $date_de_publication = Carbon::createFromFormat('Y-m-d\TH:i', $request->date_de_publication);
 
         $livre = Livre::findOrFail($id);
         $livre->update($request->all());

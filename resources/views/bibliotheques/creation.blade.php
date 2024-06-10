@@ -151,8 +151,8 @@
                             </div>
 
                             <div class="form-col mb-3">
-                                <label for="date_de_publication" class="form-label">Date de Publication</label>
-                                <input type="date" class="form-control @error('date_de_publication') is-invalid @enderror" id="date_de_publication" name="date_de_publication" value="{{ old('date_de_publication') }}">
+                                <label for="date_de_publication" class="form-label">Date et Heure de Publication</label>
+                                <input type="datetime-local" class="form-control @error('date_de_publication') is-invalid @enderror" id="date_de_publication" name="date_de_publication" value="{{ old('date_de_publication') }}">
                                 @error('date_de_publication')
                                 <div class="invalid-feedback">
                                     {{ $message }}
